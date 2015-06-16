@@ -1,15 +1,21 @@
-Start
+Install dependencies:
 
-After cloning the project you can download all the depend node modules using:
-
+goto the dir > 
+and
 npm install
 
-bower install
+cd app > bower install
 
-gulp
+run gulp
 
 Build
 
 Create a deployment build with the following commands:
 
 gulp build
+
+induvidual tasks:
+
+gulp build:copy
+gulp build:claen
+gulp build:remove
