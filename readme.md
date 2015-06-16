@@ -1,5 +1,10 @@
 Install dependencies:
 
+make sure you have ruby installed on your machine
+to check:
+
+open terminal: type ruby -v
+
 goto the dir > 
 and
 npm install
