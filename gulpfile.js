@@ -9,6 +9,7 @@ var gulp = require('gulp'),
 	compass = require('gulp-compass'),
 	plumber = require('gulp-plumber'),
 	autoprefixer = require('gulp-autoprefixer'),
+	del = require('del'),
 	rename = require('gulp-rename');
 
 
@@ -54,12 +55,48 @@ gulp.task('html', function(){
 });
 
 //////////////////////////
+//// build task
+///////////////
+
+//clean build folder before copy
+gulp.task('build:clean', function(cb){
+	del([
+		'build/**'
+	], cb);
+});
+
+// task to create a build directory for all files
+gulp.task('build:copy', ['build:clean'], function(){
+	return gulp.src('app/**/*')
+	.pipe(gulp.dest('build/'));
+});
+
+//task to remove unwanted build files
+//list the files and dir which you dont want to include
+gulp.task('build:remove', ['build:copy'], function(cb){
+	del([
+		'build/scss',
+		'build/js/!(*.min.js)'
+		], cb);
+});
+
+gulp.task('build', ['build:copy', 'build:remove']);
+
+//////////////////////////
 //// browsersync tasks
 ///////////////
 gulp.task('browser-sync', function(){
 	browserSync({
 		server: {
 			baseDir: "./app/"
+		}
+	});
+});
+
+gulp.task('build:serve', function(){
+	browserSync({
+		server: {
+			baseDir: "./build/"
 		}
 	});
 });
